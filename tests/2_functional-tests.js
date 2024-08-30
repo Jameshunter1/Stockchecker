@@ -40,36 +40,36 @@ describe('Functional Tests', () => {
       });
   });
 
-  it('Viewing the same stock and liking it again: GET request to /api/stock-prices/', (done) => {
-    // First, view the stock and like it
-    chai.request(app)
-      .get('/api/stock-prices')
-      .query({ stock: stockId1, like: 'true' })
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res).to.have.status(200);
-        expect(res.body).to.have.property('stockData');
-        expect(res.body.stockData).to.have.property('stock', stockId1);
-        expect(res.body.stockData).to.have.property('price');
-        expect(res.body.stockData.likes).to.be.above(0); // Check if likes are present
-        
-        // Check again after liking it again
-        chai.request(app)
-          .get('/api/stock-prices')
-          .query({ stock: stockId1, like: 'true' })
-          .end((err, res) => {
-            if (err) return done(err);
-            expect(res).to.have.status(200);
-            expect(res.body).to.have.property('stockData');
-            expect(res.body.stockData).to.have.property('stock', stockId1);
-            expect(res.body.stockData).to.have.property('price');
-            expect(res.body.stockData.likes).to.be.above(1); // Check if likes increased
-  
-            done();
-          });
-      });
-  });
-  
+it('Viewing the same stock and liking it again: GET request to /api/stock-prices/', (done) => {
+  // First, view the stock and like it
+  chai.request(app)
+    .get('/api/stock-prices')
+    .query({ stock: stockId1, like: 'true' })
+    .end((err, res) => {
+      if (err) return done(err);
+      expect(res).to.have.status(200);
+      expect(res.body).to.have.property('stockData');
+      expect(res.body.stockData).to.have.property('stock', stockId1);
+      expect(res.body.stockData).to.have.property('price');
+      expect(res.body.stockData.likes).to.be.above(0); // Check if likes are present
+      
+      // Check again after liking it again
+      chai.request(app)
+        .get('/api/stock-prices')
+        .query({ stock: stockId1, like: 'true' })
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res).to.have.status(200);
+          expect(res.body).to.have.property('stockData');
+          expect(res.body.stockData).to.have.property('stock', stockId1);
+          expect(res.body.stockData).to.have.property('price');
+          expect(res.body.stockData.likes).to.be.above(1); // Check if likes increased
+
+          done();
+        });
+    });
+});
+
   
 
   it('Viewing two stocks: GET request to /api/stock-prices/', (done) => {
