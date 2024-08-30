@@ -1,4 +1,5 @@
-import('node-fetch'); // Ensure node-fetch is installed
+// In-memory store for likes (for demonstration purposes only)
+const stockLikes = {};
 
 module.exports = function (app) {
   app.route('/api/stock-prices')
@@ -14,21 +15,21 @@ module.exports = function (app) {
           ));
           const data = await Promise.all(responses.map(response => response.json()));
 
-          // Initialize likes count
           let likes = [0, 0];
 
-          // Update likes if 'like' query is true
           if (like) {
             likes = [1, 1];
+            stockQuery.forEach((stock, index) => {
+              stockLikes[stock] = (stockLikes[stock] || 0) + likes[index];
+            });
           }
 
           const stockData = data.map((stock, index) => ({
             stock: stock.symbol,
             price: stock.latestPrice,
-            likes: likes[index] // Set likes based on the array
+            likes: stockLikes[stock.symbol] || 0
           }));
 
-          // Calculate relative likes if two stocks are provided
           if (stockQuery.length === 2) {
             const rel_likes = Math.abs(stockData[0].likes - stockData[1].likes);
             stockData.forEach(stock => stock.rel_likes = rel_likes);
@@ -49,7 +50,7 @@ module.exports = function (app) {
             const stockData = {
               stock: data.symbol,
               price: data.latestPrice,
-              likes: like ? 1 : 0 // Set likes based on the like query
+              likes: like ? (stockLikes[data.symbol] = (stockLikes[data.symbol] || 0) + 1) : (stockLikes[data.symbol] || 0)
             };
 
             res.json({ stockData });
