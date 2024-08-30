@@ -1,4 +1,4 @@
-const fetch = require('node-fetch'); // Ensure node-fetch is installed
+const fetch = import('node-fetch'); // Ensure node-fetch is installed
 
 module.exports = function (app) {
   app.route('/api/stock-prices')
