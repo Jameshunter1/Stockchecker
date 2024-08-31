@@ -16,6 +16,7 @@ module.exports = function (app) {
           const data = await Promise.all(responses.map(response => response.json()));
 
           let likes = [0, 0];
+          
 
           if (like) {
             likes = [1, 1];
