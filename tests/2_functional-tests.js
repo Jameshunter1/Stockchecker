@@ -6,7 +6,6 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe('Functional Tests', () => {
-  this.timeout(10000); // Set the timeout to 10 seconds (10000 ms)
 
   const stockId1 = 'AAPL'; // Example stock ID
   const stockId2 = 'GOOGL'; // Example stock ID
