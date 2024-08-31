@@ -11,7 +11,7 @@ describe('Functional Tests', () => {
   const stockId2 = 'GOOGL'; // Example stock ID
 
   it('Viewing one stock: GET request to /api/stock-prices/', (done) => {
-    chai.request(app)      .keepOpen()
+    chai.request(app)     
 
       .get('/api/stock-prices')
       .query({ stock: stockId1 })
@@ -27,7 +27,7 @@ describe('Functional Tests', () => {
   });
 
   it('Viewing one stock and liking it: GET request to /api/stock-prices/', (done) => {
-    chai.request(app)      .keepOpen()
+    chai.request(app)     
 
       .get('/api/stock-prices')
       .query({ stock: stockId1, like: 'true' })
@@ -44,7 +44,7 @@ describe('Functional Tests', () => {
 
 it('Viewing the same stock and liking it again: GET request to /api/stock-prices/', (done) => {
   // First, view the stock and like it
-  chai.request(app)      .keepOpen()
+  chai.request(app)      
 
     .get('/api/stock-prices')
     .query({ stock: stockId1, like: 'true' })
@@ -57,7 +57,7 @@ it('Viewing the same stock and liking it again: GET request to /api/stock-prices
       expect(res.body.stockData.likes).to.be.above(0); // Check if likes are present
       
       // Check again after liking it again
-      chai.request(app)      .keepOpen()
+      chai.request(app)     
 
         .get('/api/stock-prices')
         .query({ stock: stockId1, like: 'true' })
@@ -77,7 +77,7 @@ it('Viewing the same stock and liking it again: GET request to /api/stock-prices
   
 
   it('Viewing two stocks: GET request to /api/stock-prices/', (done) => {
-    chai.request(app)      .keepOpen()
+    chai.request(app)     
 
       .get('/api/stock-prices')
       .query({ stock: [stockId1, stockId2] })
@@ -97,7 +97,7 @@ it('Viewing the same stock and liking it again: GET request to /api/stock-prices
   });
 
   it('Viewing two stocks and liking them: GET request to /api/stock-prices/', (done) => {
-    chai.request(app)      .keepOpen()
+    chai.request(app)      
 
       .get('/api/stock-prices')
       .query({ stock: [stockId1, stockId2], like: 'true' })
