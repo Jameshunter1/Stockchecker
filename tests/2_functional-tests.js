@@ -12,7 +12,7 @@ describe('Functional Tests', () => {
 
   it('Viewing one stock: GET request to /api/stock-prices/', (done) => {
     chai.request(app)     
-
+    .keepOpen()
       .get('/api/stock-prices')
       .query({ stock: stockId1 })
       .end((err, res) => {
